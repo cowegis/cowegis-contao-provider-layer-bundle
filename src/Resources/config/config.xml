@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="cowegis_contao_provider_layer.providers" type="collection">
+            <parameter key="OpenStreetMap" type="collection">
+                <parameter key="url">https://www.openstreetmap.org/copyright</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Mapnik</parameter>
+                    <parameter>DE</parameter>
+                    <parameter>CH</parameter>
+                    <parameter>France</parameter>
+                    <parameter>HOT</parameter>
+                    <parameter>BZH</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="OpenSeaMap" type="collection">
+                <parameter key="url">http://www.openseamap.org</parameter>
+            </parameter>
+
+            <parameter key="OpenPtMap" type="collection">
+                <parameter key="url">http://www.openptmap.org</parameter>
+            </parameter>
+
+            <parameter key="OpenTopoMap" type="collection">
+                <parameter key="url">http://viewfinderpanoramas.org</parameter>
+            </parameter>
+
+            <parameter key="OpenRailwayMap" type="collection">
+                <parameter key="url">http://www.OpenRailwayMap.org"</parameter>
+            </parameter>
+
+            <parameter key="OpenFireMap" type="collection">
+                <parameter key="url">http://www.openfiremap.org</parameter>
+            </parameter>
+
+            <parameter key="SafeCast" type="collection">
+                <parameter key="url">http://blog.safecast.org/about/</parameter>
+            </parameter>
+
+            <parameter key="Stadia" type="collection">
+                <parameter key="url">https://stadiamaps.com/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>AlidadeSmooth</parameter>
+                    <parameter>AlidadeSmoothDark</parameter>
+                    <parameter>OSMBright</parameter>
+                    <parameter>Outdoors</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="Thunderforest" type="collection">
+                <parameter key="url">https://www.thunderforest.com/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>OpenCycleMap</parameter>
+                    <parameter>Transport</parameter>
+                    <parameter>TransportDark</parameter>
+                    <parameter>SpinalMap</parameter>
+                    <parameter>Landscape</parameter>
+                    <parameter>Outdoors</parameter>
+                    <parameter>Pioneer</parameter>
+                </parameter>
+                <parameter key="options" type="collection">
+                    <parameter key="apiKey">tile_provider_key</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="CyclOSM" type="collection">
+                <parameter key="url">https://github.com/cyclosm/cyclosm-cartocss-style</parameter>
+            </parameter>
+
+            <parameter key="Hydda" type="collection">
+                <parameter key="url">http://openstreetmap.se/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Full</parameter>
+                    <parameter>Base</parameter>
+                    <parameter>RoadsAndLabels</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="Jawg" type="collection">
+                <parameter key="url">https://www.jawg.io/lab/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Streets</parameter>
+                    <parameter>Terrain</parameter>
+                    <parameter>Sunny</parameter>
+                    <parameter>Dark</parameter>
+                    <parameter>Light</parameter>
+                    <parameter>Matrix</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="MapBox" type="collection">
+                <parameter key="url">https://www.mapbox.com</parameter>
+                <parameter key="options">
+                    <parameter key="accessToken">tile_provider_key</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="MapTiler" type="collection">
+                <parameter key="url">https://www.maptiler.com/copyright</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Streets</parameter>
+                    <parameter>Basic</parameter>
+                    <parameter>Bright</parameter>
+                    <parameter>Positron</parameter>
+                    <parameter>Hybrid</parameter>
+                    <parameter>Toner</parameter>
+                    <parameter>Topo</parameter>
+                    <parameter>Voyager</parameter>
+                </parameter>
+                <parameter key="options" type="collection">
+                    <parameter key="key">tile_provider_key</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="Stamen" type="collection">
+                <parameter key="url">http://stamen.com</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Toner</parameter>
+                    <parameter>TonerBackground</parameter>
+                    <parameter>TonerHybrid</parameter>
+                    <parameter>TonerLines</parameter>
+                    <parameter>TonerLabels</parameter>
+                    <parameter>TonerLite</parameter>
+                    <parameter>Watercolor</parameter>
+                    <parameter>Terrain</parameter>
+                    <parameter>TerrainBackground</parameter>
+                    <parameter>TerrainLabels</parameter>
+                    <parameter>TopOSMRelief</parameter>
+                    <parameter>TopOSMFeatures</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="TomTom" type="collection">
+                <parameter key="url">https://tomtom.com</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Basic</parameter>
+                    <parameter>Hybrid</parameter>
+                    <parameter>Labels</parameter>
+                </parameter>
+                <parameter key="options" type="collection">
+                    <parameter key="apikey">tile_provider_key</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="Esri" type="collection">
+                <parameter key="url">https://arcgisonline.com</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>WorldStreetMap</parameter>
+                    <parameter>DeLorme</parameter>
+                    <parameter>WorldTopoMap</parameter>
+                    <parameter>WorldImagery</parameter>
+                    <parameter>WorldTerrain</parameter>
+                    <parameter>WorldShadedRelief</parameter>
+                    <parameter>WorldPhysical</parameter>
+                    <parameter>OceanBasemap</parameter>
+                    <parameter>NatGeoWorldMap</parameter>
+                    <parameter>WorldGrayCanvas</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="OpenWeatherMap" type="collection">
+                <parameter key="url">https://openweathermap.org</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Clouds</parameter>
+                    <parameter>CloudsClassic</parameter>
+                    <parameter>Precipitation</parameter>
+                    <parameter>PrecipitationClassic</parameter>
+                    <parameter>Rain</parameter>
+                    <parameter>RainClassic</parameter>
+                    <parameter>Pressure</parameter>
+                    <parameter>PressureContour</parameter>
+                    <parameter>Wind</parameter>
+                    <parameter>Temperature</parameter>
+                    <parameter>Snow</parameter>
+                </parameter>
+                <parameter key="options" type="collection">
+                    <parameter key="apiKey">tile_provider_key</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="HERE" type="collection">
+                <parameter key="url">https://developer.here.com/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>normalDay</parameter>
+                    <parameter>normalDayCustom</parameter>
+                    <parameter>normalDayGrey</parameter>
+                    <parameter>normalDayMobile</parameter>
+                    <parameter>normalDayGreyMobile</parameter>
+                    <parameter>normalDayTransit</parameter>
+                    <parameter>normalDayTransitMobile</parameter>
+                    <parameter>normalDayTraffic</parameter>
+                    <parameter>normalNight</parameter>
+                    <parameter>normalNightMobile</parameter>
+                    <parameter>normalNightGrey</parameter>
+                    <parameter>normalNightGreyMobile</parameter>
+                    <parameter>normalNightTransit</parameter>
+                    <parameter>normalNightTransitMobile</parameter>
+                    <parameter>reducedDay</parameter>
+                    <parameter>reducedNight</parameter>
+                    <parameter>basicMap</parameter>
+                    <parameter>mapLabels</parameter>
+                    <parameter>trafficFlow</parameter>
+                    <parameter>carnavDayGrey</parameter>
+                    <parameter>hybridDay</parameter>
+                    <parameter>hybridDayMobile</parameter>
+                    <parameter>hybridDayTransit</parameter>
+                    <parameter>hybridDayGrey</parameter>
+                    <parameter>hybridDayTraffic</parameter>
+                    <parameter>pedestrianDay</parameter>
+                    <parameter>pedestrianNight</parameter>
+                    <parameter>satelliteDay</parameter>
+                    <parameter>terrainDay</parameter>
+                    <parameter>terrainDayMobile</parameter>
+                </parameter>
+                <parameter key="options" type="collection">
+                    <parameter key="app_id">tile_provider_key</parameter>
+                    <parameter key="app_code">tile_provider_code</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                    <parameter>tile_provider_code</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="HEREv3" type="collection">
+                <parameter key="url">https://developer.here.com/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>normalDay</parameter>
+                    <parameter>normalDayCustom</parameter>
+                    <parameter>normalDayGrey</parameter>
+                    <parameter>normalDayMobile</parameter>
+                    <parameter>normalDayGreyMobile</parameter>
+                    <parameter>normalDayTransit</parameter>
+                    <parameter>normalDayTransitMobile</parameter>
+                    <parameter>normalDayTraffic</parameter>
+                    <parameter>normalNight</parameter>
+                    <parameter>normalNightMobile</parameter>
+                    <parameter>normalNightGrey</parameter>
+                    <parameter>normalNightGreyMobile</parameter>
+                    <parameter>normalNightTransit</parameter>
+                    <parameter>normalNightTransitMobile</parameter>
+                    <parameter>reducedDay</parameter>
+                    <parameter>reducedNight</parameter>
+                    <parameter>basicMap</parameter>
+                    <parameter>mapLabels</parameter>
+                    <parameter>trafficFlow</parameter>
+                    <parameter>carnavDayGrey</parameter>
+                    <parameter>hybridDay</parameter>
+                    <parameter>hybridDayMobile</parameter>
+                    <parameter>hybridDayTransit</parameter>
+                    <parameter>hybridDayGrey</parameter>
+                    <parameter>hybridDayTraffic</parameter>
+                    <parameter>pedestrianDay</parameter>
+                    <parameter>pedestrianNight</parameter>
+                    <parameter>satelliteDay</parameter>
+                    <parameter>terrainDay</parameter>
+                    <parameter>terrainDayMobile</parameter>
+                </parameter>
+                <parameter key="options" type="collection">
+                    <parameter key="apiKey">tile_provider_key</parameter>
+                </parameter>
+                <parameter key="fields" type="collection">
+                    <parameter>tile_provider_key</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="FreeMapSK" type="collection">
+                <parameter key="url">https://www.freemap.sk/</parameter>
+            </parameter>
+
+            <parameter key="MtbMap" type="collection">
+                <parameter key="url">http://mtbmap.cz/</parameter>
+            </parameter>
+
+            <parameter key="CartoDB" type="collection">
+                <parameter key="url">https://carto.com/attributions</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Positron</parameter>
+                    <parameter>PositronNoLabels</parameter>
+                    <parameter>PositronOnlyLabels</parameter>
+                    <parameter>DarkMatter</parameter>
+                    <parameter>DarkMatterNoLabels</parameter>
+                    <parameter>DarkMatterOnlyLabels</parameter>
+                    <parameter>Voyager</parameter>
+                    <parameter>VoyagerNoLabels</parameter>
+                    <parameter>VoyagerOnlyLabels</parameter>
+                    <parameter>VoyagerLabelsUnder</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="HikeBike" type="collection">
+                <parameter key="url">https://wmflabs.org</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>HikeBike</parameter>
+                    <parameter>HillShading</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="BasemapAT" type="collection">
+                <parameter key="url">https://www.basemap.at</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>basemap</parameter>
+                    <parameter>grau</parameter>
+                    <parameter>overlay</parameter>
+                    <parameter>terrain</parameter>
+                    <parameter>surface</parameter>
+                    <parameter>highdpi</parameter>
+                    <parameter>orthofoto</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="nlmaps" type="collection">
+                <parameter key="url">https://www.kadaster.nl/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>standaard</parameter>
+                    <parameter>pastel</parameter>
+                    <parameter>grijs</parameter>
+                    <parameter>luchtfoto</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="NASAGIBS" type="collection">
+                <parameter key="url">https://earthdata.nasa.gov</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>ModisTerraTrueColorCR</parameter>
+                    <parameter>ModisTerraBands367CR</parameter>
+                    <parameter>ViirsEarthAtNight2012</parameter>
+                    <parameter>ModisTerraLSTDay</parameter>
+                    <parameter>ModisTerraSnowCover</parameter>
+                    <parameter>ModisTerraAOD</parameter>
+                    <parameter>ModisTerraChlorophyll</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="NLS" type="collection">
+                <parameter key="url">http://geo.nls.uk/maps/</parameter>
+            </parameter>
+
+            <parameter key="JusticeMap" type="collection">
+                <parameter key="url">http://www.justicemap.org/terms.php</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>income</parameter>
+                    <parameter>americanIndian</parameter>
+                    <parameter>asian</parameter>
+                    <parameter>black</parameter>
+                    <parameter>hispanic</parameter>
+                    <parameter>multi</parameter>
+                    <parameter>nonWhite</parameter>
+                    <parameter>white</parameter>
+                    <parameter>plurality</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="Wikimedia" type="collection">
+                <parameter key="url">https://wikimediafoundation.org/wiki/Maps_Terms_of_Use</parameter>
+            </parameter>
+
+            <parameter key="GeoportailFrance" type="collection">
+                <parameter key="url">href="https://www.geoportail.gouv.fr/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>parcels</parameter>
+                    <parameter>ignMaps</parameter>
+                    <parameter>maps</parameter>
+                    <parameter>orthos</parameter>
+                </parameter>
+            </parameter>
+
+            <parameter key="OneMapSG" type="collection">
+                <parameter key="url">https://www.sla.gov.sg/</parameter>
+                <parameter key="variants" type="collection">
+                    <parameter>Default</parameter>
+                    <parameter>Night</parameter>
+                    <parameter>Original</parameter>
+                    <parameter>Grey</parameter>
+                    <parameter>LandLot</parameter>
+                </parameter>
+            </parameter>
+        </parameter>
+    </parameters>
+</container>

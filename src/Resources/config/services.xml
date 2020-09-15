@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType">
+            <argument type="service" id="translator" />
+            <argument>%cowegis_contao_provider_layer.providers%</argument>
+            <tag name="Cowegis\Bundle\Contao\Map\Layer\LayerType" />
+        </service>
+
+        <service id="Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerHydrator">
+            <argument>%cowegis_contao_provider_layer.providers%</argument>
+            <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
+        </service>
+
+        <service id="Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca\LayerDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument>%cowegis_contao_provider_layer.providers%</argument>
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.tile_provider.options" method="providerOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.tile_provider_variant.options" method="variantOptions" />
+        </service>
+
+        <service id="Cowegis\Bundle\ContaoProviderLayer\EventListener\Hook\ProviderPalettesListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument>%cowegis_contao_provider_layer.providers%</argument>
+            <tag name="contao.hook" hook="loadDataContainer" />
+        </service>
+    </services>
+</container>
