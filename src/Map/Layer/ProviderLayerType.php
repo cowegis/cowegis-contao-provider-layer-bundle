@@ -38,7 +38,9 @@ final class ProviderLayerType implements LayerType
     public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer
     {
         $variants = $this->configuration[$layerModel->tile_provider]['variants'] ?? [];
-        $variant  = in_array($layerModel->tile_provider_variant, $variants) ? $layerModel->tile_provider_variant : null;
+        $variant  = (isset($variants[$variants]) || in_array($variants, $variants))
+            ? $layerModel->tile_provider_variant
+            : null;
 
         return new ProviderLayer(
             $layerModel->layerId(),
@@ -58,6 +60,16 @@ final class ProviderLayerType implements LayerType
             $provider = $translated;
         } else {
             $provider = $row['tile_provider'];
+        }
+
+        $variant = isset($this->configuration[$row['tile_provider']]['variants'])
+            ? $row['tile_provider_variant']
+            : null;
+
+        if ($variant) {
+            $label .= sprintf('<span class="tl_gray"> (%s, %s)</span>', $provider, $variant);
+
+            return $label;
         }
 
         $label .= sprintf('<span class="tl_gray"> (%s)</span>', $provider);

@@ -11,9 +11,14 @@
                     <parameter>Mapnik</parameter>
                     <parameter>DE</parameter>
                     <parameter>CH</parameter>
-                    <parameter>France</parameter>
-                    <parameter>HOT</parameter>
-                    <parameter>BZH</parameter>
+                    <parameter key="France" type="collection">
+                    </parameter>
+                    <parameter key="HOT" type="collection">
+                        <parameter key="url">https://www.hotosm.org/</parameter>
+                    </parameter>
+                    <parameter key="BZH" type="collection">
+                        <parameter key="url">http://www.openstreetmap.bzh/</parameter>
+                    </parameter>
                 </parameter>
             </parameter>
 

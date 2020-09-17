@@ -17,9 +17,14 @@
 
         <service id="Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca\LayerDcaListener" public="true">
             <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="netzmacht.contao_toolkit.contao.input_adapter" />
+            <argument type="service" id="Cowegis\Bundle\Contao\Model\LayerRepository" />
             <argument>%cowegis_contao_provider_layer.providers%</argument>
+            <tag name="contao.callback" table="tl_cowegis_layer" target="config.onload" method="initialize" />
             <tag name="contao.callback" table="tl_cowegis_layer" target="fields.tile_provider.options" method="providerOptions" />
             <tag name="contao.callback" table="tl_cowegis_layer" target="fields.tile_provider_variant.options" method="variantOptions" />
+            <tag name="contao.callback" table="tl_cowegis_layer" target="fields.tile_provider_terms_of_use.input_field" method="termsOfUse" />
         </service>
 
         <service id="Cowegis\Bundle\ContaoProviderLayer\EventListener\Hook\ProviderPalettesListener" public="true">

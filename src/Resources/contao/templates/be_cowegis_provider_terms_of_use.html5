@@ -1,0 +1,7 @@
+
+<div class="clr" style="margin-bottom: -25px; padding-top: 25px">
+    <div class="tl_info" style="margin: 0">
+        <?= $this->text ?>
+        <a href="<?= $this->url ?>" target="_blank"><?= $this->url ?></a>
+    </div>
+</div>
