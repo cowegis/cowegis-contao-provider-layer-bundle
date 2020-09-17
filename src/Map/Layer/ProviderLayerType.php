@@ -38,9 +38,14 @@ final class ProviderLayerType implements LayerType
     public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer
     {
         $variants = $this->configuration[$layerModel->tile_provider]['variants'] ?? [];
-        $variant  = (isset($variants[$variants]) || in_array($variants, $variants))
-            ? $layerModel->tile_provider_variant
-            : null;
+        $variant  = null;
+
+        if ($variants) {
+            $variant = $layerModel->tile_provider_variant;
+            if (!isset($variants[$variant]) && !in_array($variant, $variants, true)) {
+                $variant = null;
+            }
+        }
 
         return new ProviderLayer(
             $layerModel->layerId(),
