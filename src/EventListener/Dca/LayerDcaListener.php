@@ -10,30 +10,34 @@ use Contao\DataContainer;
 use Contao\Input;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
+use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
 use function array_keys;
 use function in_array;
 use function is_string;
 
+/**
+ * @psalm-import-type TProviderConfig from ProviderLayerType
+ */
 final class LayerDcaListener extends AbstractListener
 {
+    /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $name = 'tl_cowegis_layer';
 
-    /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var array */
-    private $configuration;
+    /** @var array<string,TProviderConfig> */
+    private array $configuration;
 
     /** @var Adapter<Input> */
-    private $inputAdapter;
-    /**
-     * @var LayerRepository
-     */
-    private $layerRepository;
+    private Adapter $inputAdapter;
+    private LayerRepository $layerRepository;
 
+    /** @param array<string,TProviderConfig> $configuration */
     public function __construct(
         Manager $dcaManager,
         TranslatorInterface $translator,
@@ -43,9 +47,9 @@ final class LayerDcaListener extends AbstractListener
     ) {
         parent::__construct($dcaManager);
 
-        $this->configuration = $configuration;
-        $this->translator    = $translator;
-        $this->inputAdapter  = $inputAdapter;
+        $this->configuration   = $configuration;
+        $this->translator      = $translator;
+        $this->inputAdapter    = $inputAdapter;
         $this->layerRepository = $layerRepository;
     }
 
@@ -72,7 +76,7 @@ final class LayerDcaListener extends AbstractListener
         }
 
         $variants = $this->configuration[$provider]['variants'];
-        $variant = $this->inputAdapter->post('tile_provider_variant');
+        $variant  = $this->inputAdapter->post('tile_provider_variant');
         if (isset($variants[$variant]) || in_array($variant, $variants, true)) {
             return;
         }
@@ -82,14 +86,18 @@ final class LayerDcaListener extends AbstractListener
         $this->inputAdapter->setPost('tile_provider_variant', $first);
     }
 
-    public function providerOptions() : array
+    /**
+     * @return list<string>
+     */
+    public function providerOptions(): array
     {
         return array_keys($this->configuration);
     }
 
-    public function variantOptions(DataContainer $dataContainer) : array
+    /** @return list<string> */
+    public function variantOptions(DataContainer $dataContainer): array
     {
-        if (!$dataContainer->activeRecord || !$dataContainer->activeRecord->tile_provider) {
+        if (! $dataContainer->activeRecord || ! $dataContainer->activeRecord->tile_provider) {
             return [];
         }
 
@@ -97,28 +105,28 @@ final class LayerDcaListener extends AbstractListener
         $options  = [];
 
         foreach ($variants as $key => $value) {
-            $options[] = is_string($value) ? $value : $key;
+            $options[] = is_string($value) ? $value : (string) $key;
         }
 
         return $options;
     }
 
-    public function termsOfUse(DataContainer $dataContainer) : string
+    public function termsOfUse(DataContainer $dataContainer): string
     {
         if ($dataContainer->activeRecord === null) {
             return '';
         }
 
-        if (!isset($this->configuration[$dataContainer->activeRecord->tile_provider])) {
+        if (! isset($this->configuration[$dataContainer->activeRecord->tile_provider])) {
             return '';
         }
 
-        $provider    = $this->configuration[$dataContainer->activeRecord->tile_provider];
-        $url         = $provider['url'] ?? null;
+        $provider = $this->configuration[$dataContainer->activeRecord->tile_provider];
+        $url      = $provider['url'] ?? null;
 
         if (isset($provider['variants'][$dataContainer->activeRecord->tile_provider_variant])) {
-            $variant     = $provider['variants'][$dataContainer->activeRecord->tile_provider_variant];
-            $url         = $variant['url'] ?: $url;
+            $variant = $provider['variants'][$dataContainer->activeRecord->tile_provider_variant];
+            $url     = $variant['url'] ?? $url;
         }
 
         if ($url) {

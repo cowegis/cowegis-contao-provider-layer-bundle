@@ -11,38 +11,48 @@ use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
 use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\ProviderLayer;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
 use function in_array;
 use function sprintf;
 
+/**
+ * @psalm-type TProviderConfig = array{
+ *     url: string,
+ *     variants?: list<string>|array<string,array<string,string>>,
+ *     options?: array<string,string>,
+ *     fields?: list<string>
+ * }
+ */
 final class ProviderLayerType implements LayerType
 {
     use MapLayerType;
 
-    /** @var TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var array */
-    private $configuration;
+    /** @var array<string,TProviderConfig> */
+    private array $configuration;
 
+    /** @param array<string,TProviderConfig> $configuration */
     public function __construct(TranslatorInterface $translator, array $configuration)
     {
         $this->translator    = $translator;
         $this->configuration = $configuration;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return 'provider';
     }
 
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel) : Layer
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
     {
         $variants = $this->configuration[$layerModel->tile_provider]['variants'] ?? [];
         $variant  = null;
 
         if ($variants) {
+            /** @psalm-suppress UndefinedMagicPropertyFetch */
             $variant = $layerModel->tile_provider_variant;
-            if (!isset($variants[$variant]) && !in_array($variant, $variants, true)) {
+            if (! isset($variants[$variant]) && ! in_array($variant, $variants, true)) {
                 $variant = null;
             }
         }
@@ -50,13 +60,14 @@ final class ProviderLayerType implements LayerType
         return new ProviderLayer(
             $layerModel->layerId(),
             $this->hydrateName($layerModel, $mapLayerModel),
-            $layerModel->tile_provider,
+            (string) $layerModel->tile_provider,
             $variant,
             $this->hydrateInitialVisible($mapLayerModel)
         );
     }
 
-    public function label(string $label, array $row) : string
+    /** @param array<string,mixed> $row */
+    public function label(string $label, array $row): string
     {
         $langKey    = 'leaflet_provider.' . $row['tile_provider'] . '.0';
         $translated = $this->translator->trans($langKey, [], 'contao_leaflet');

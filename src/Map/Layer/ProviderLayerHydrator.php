@@ -9,17 +9,24 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 
+/**
+ * @psalm-import-type TProviderConfig from ProviderLayerType
+ */
 final class ProviderLayerHydrator extends LayerTypeHydrator
 {
-    /** @var array */
-    private $configuration;
+    /** @var array<string,TProviderConfig> */
+    private array $configuration;
 
+    /** @param array<string,TProviderConfig> $configuration */
     public function __construct(array $configuration)
     {
         $this->configuration = $configuration;
     }
 
-    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context) : void
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    protected function hydrateLayer(LayerModel $layerModel, Layer $layer, MapLayerContext $context): void
     {
         $options = $this->configuration[$layerModel->tile_provider]['options'] ?? [];
         foreach ($options as $target => $source) {
@@ -27,7 +34,7 @@ final class ProviderLayerHydrator extends LayerTypeHydrator
         }
     }
 
-    protected function supportedType() : string
+    protected function supportedType(): string
     {
         return 'provider';
     }

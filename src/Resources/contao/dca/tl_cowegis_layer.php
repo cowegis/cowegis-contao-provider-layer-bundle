@@ -9,7 +9,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer']['metasubselectpalettes']['type']['provide
 ];
 
 $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tile_provider'],
     'exclude'   => true,
     'inputType' => 'select',
     'eval'      => [
@@ -23,7 +22,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider_variant'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tile_provider_variant'],
     'exclude'   => true,
     'inputType' => 'select',
     'eval'      => [
@@ -38,7 +36,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider_variant'] = [
 $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider_terms_of_use'] = [];
 
 $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider_key'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tile_provider_key'],
     'exclude'   => true,
     'inputType' => 'text',
     'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr w50'],
@@ -46,7 +43,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider_key'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_cowegis_layer']['fields']['tile_provider_code'] = [
-    'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_layer']['tile_provider_code'],
     'exclude'   => true,
     'inputType' => 'text',
     'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],

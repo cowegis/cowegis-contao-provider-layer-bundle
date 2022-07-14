@@ -13,11 +13,16 @@ use Cowegis\Bundle\ContaoProviderLayer\CowegisContaoProviderLayerBundle;
 
 final class Plugin implements BundlePluginInterface
 {
-    public function getBundles(ParserInterface $parser) : array
+    /**
+     * {@inheritDoc}
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function getBundles(ParserInterface $parser): array
     {
         return [
             BundleConfig::create(CowegisContaoProviderLayerBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class, CowegisContaoBundle::class])
+                ->setLoadAfter([ContaoCoreBundle::class, CowegisContaoBundle::class]),
         ];
     }
 }
