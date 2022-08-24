@@ -9,6 +9,7 @@ use Cowegis\Bundle\Contao\Map\Layer\LayerTypeHydrator;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
+use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
 /**
  * @psalm-import-type TProviderConfig from ProviderLayerType
@@ -19,8 +20,10 @@ final class ProviderLayerHydrator extends LayerTypeHydrator
     private array $configuration;
 
     /** @param array<string,TProviderConfig> $configuration */
-    public function __construct(array $configuration)
+    public function __construct(array $configuration, ResponseTagger $responseTagger)
     {
+        parent::__construct($responseTagger);
+
         $this->configuration = $configuration;
     }
 

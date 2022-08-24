@@ -12,6 +12,7 @@
 
         <service id="Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerHydrator">
             <argument>%cowegis_contao_provider_layer.providers%</argument>
+            <argument type="service" id="netzmacht.contao_toolkit.response_tagger"/>
             <tag name="Cowegis\Bundle\Contao\Hydrator\Hydrator" />
         </service>
 
