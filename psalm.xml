@@ -14,9 +14,15 @@
     </projectFiles>
     
     <issueHandlers>
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Contao\CoreBundle\Framework\Adapter::__call"/>
+            </errorLevel>
+        </InternalMethod>
         <UndefinedMagicPropertyFetch>
             <errorLevel type="suppress">
                 <referencedProperty name="Cowegis\Bundle\Contao\Model\LayerModel::$tile_provider"/>
+                <referencedProperty name="Contao\DataContainer::$activeRecord"/>
             </errorLevel>
         </UndefinedMagicPropertyFetch>
     </issueHandlers>

@@ -27,16 +27,9 @@ final class ProviderLayerType implements LayerType
 {
     use MapLayerType;
 
-    private TranslatorInterface $translator;
-
-    /** @var array<string,TProviderConfig> */
-    private array $configuration;
-
     /** @param array<string,TProviderConfig> $configuration */
-    public function __construct(TranslatorInterface $translator, array $configuration)
+    public function __construct(private readonly TranslatorInterface $translator, private readonly array $configuration)
     {
-        $this->translator    = $translator;
-        $this->configuration = $configuration;
     }
 
     public function name(): string
@@ -62,7 +55,7 @@ final class ProviderLayerType implements LayerType
             $this->hydrateName($layerModel, $mapLayerModel),
             (string) $layerModel->tile_provider,
             $variant,
-            $this->hydrateInitialVisible($mapLayerModel)
+            $this->hydrateInitialVisible($mapLayerModel),
         );
     }
 

@@ -11,30 +11,21 @@ use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
 
-/**
- * @psalm-import-type TProviderConfig from ProviderLayerType
- */
+/** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class ProviderLayerHydrator extends LayerTypeHydrator
 {
-    /** @var array<string,TProviderConfig> */
-    private array $configuration;
-
     /** @param array<string,TProviderConfig> $configuration */
-    public function __construct(array $configuration, ResponseTagger $responseTagger)
+    public function __construct(private readonly array $configuration, ResponseTagger $responseTagger)
     {
         parent::__construct($responseTagger);
-
-        $this->configuration = $configuration;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     protected function hydrateLayer(
         LayerModel $layerModel,
         Layer $layer,
         MapLayerContext $context,
-        Hydrator $hydrator
+        Hydrator $hydrator,
     ): void {
         $options = $this->configuration[$layerModel->tile_provider]['options'] ?? [];
         foreach ($options as $target => $source) {

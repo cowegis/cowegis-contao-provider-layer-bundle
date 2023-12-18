@@ -7,7 +7,6 @@ namespace Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca;
 use Contao\BackendTemplate;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
-use Contao\Input;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
@@ -19,38 +18,20 @@ use function array_keys;
 use function in_array;
 use function is_string;
 
-/**
- * @psalm-import-type TProviderConfig from ProviderLayerType
- */
+/** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class LayerDcaListener extends AbstractListener
 {
-    /** @var string */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-    protected static $name = 'tl_cowegis_layer';
-
-    private TranslatorInterface $translator;
-
-    /** @var array<string,TProviderConfig> */
-    private array $configuration;
-
-    /** @var Adapter<Input> */
-    private Adapter $inputAdapter;
-    private LayerRepository $layerRepository;
+    protected static string $name = 'tl_cowegis_layer';
 
     /** @param array<string,TProviderConfig> $configuration */
     public function __construct(
         Manager $dcaManager,
-        TranslatorInterface $translator,
-        Adapter $inputAdapter,
-        LayerRepository $layerRepository,
-        array $configuration
+        private readonly TranslatorInterface $translator,
+        private readonly Adapter $inputAdapter,
+        private readonly LayerRepository $layerRepository,
+        private readonly array $configuration,
     ) {
         parent::__construct($dcaManager);
-
-        $this->configuration   = $configuration;
-        $this->translator      = $translator;
-        $this->inputAdapter    = $inputAdapter;
-        $this->layerRepository = $layerRepository;
     }
 
     public function initialize(DataContainer $dataContainer): void
@@ -86,9 +67,7 @@ final class LayerDcaListener extends AbstractListener
         $this->inputAdapter->setPost('tile_provider_variant', $first);
     }
 
-    /**
-     * @return list<string>
-     */
+    /** @return list<string> */
     public function providerOptions(): array
     {
         return array_keys($this->configuration);
@@ -136,10 +115,10 @@ final class LayerDcaListener extends AbstractListener
                     'text' => $this->translator->trans(
                         'tl_cowegis_layer.tile_provider_terms_of_use',
                         [],
-                        'contao_tl_cowegis_layer'
+                        'contao_tl_cowegis_layer',
                     ),
                     'url'  => $url,
-                ]
+                ],
             );
 
             return $template->parse();

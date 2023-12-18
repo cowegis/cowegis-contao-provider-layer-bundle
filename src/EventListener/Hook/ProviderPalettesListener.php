@@ -8,21 +8,12 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 
-/**
- * @psalm-import-type TProviderConfig from ProviderLayerType
- */
+/** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class ProviderPalettesListener
 {
-    private DcaManager $dcaManager;
-
-    /** @var array<string,TProviderConfig> */
-    private array $configuration;
-
     /** @param array<string,TProviderConfig> $configuration */
-    public function __construct(DcaManager $dcaManager, array $configuration)
+    public function __construct(private readonly DcaManager $dcaManager, private readonly array $configuration)
     {
-        $this->dcaManager    = $dcaManager;
-        $this->configuration = $configuration;
     }
 
     public function onLoadDataContainer(string $dataContainerName): void
