@@ -21,8 +21,6 @@ use function is_string;
 /** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class LayerDcaListener extends AbstractListener
 {
-    protected static string $name = 'tl_cowegis_layer';
-
     /** @param array<string,TProviderConfig> $configuration */
     public function __construct(
         Manager $dcaManager,
@@ -32,6 +30,11 @@ final class LayerDcaListener extends AbstractListener
         private readonly array $configuration,
     ) {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_cowegis_layer';
     }
 
     public function initialize(DataContainer $dataContainer): void
@@ -108,7 +111,7 @@ final class LayerDcaListener extends AbstractListener
             $url     = $variant['url'] ?? $url;
         }
 
-        if ($url) {
+        if ($url !== null) {
             $template = new BackendTemplate('be_cowegis_provider_terms_of_use');
             $template->setData(
                 [

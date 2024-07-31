@@ -75,7 +75,7 @@ final class ProviderLayerType implements LayerType
             ? $row['tile_provider_variant']
             : null;
 
-        if ($variant) {
+        if ($variant !== null) {
             $label .= sprintf('<span class="tl_gray"> (%s, %s)</span>', $provider, $variant);
 
             return $label;
