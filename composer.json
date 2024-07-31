@@ -15,7 +15,7 @@
     "ext-pdo": "*",
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "^4.13 || ^5.3",
-    "cowegis/cowegis-contao-bundle": "dev-develop",
+    "cowegis/cowegis-contao-bundle": "^1.0",
     "cowegis/cowegis-core": "^1.0",
     "netzmacht/contao-toolkit": "^4.0",
     "symfony/config": "^5.4 || ^6.4",
