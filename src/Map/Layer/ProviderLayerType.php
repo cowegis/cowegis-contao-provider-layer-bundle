@@ -76,13 +76,9 @@ final class ProviderLayerType implements LayerType
             : null;
 
         if ($variant !== null) {
-            $label .= sprintf('<span class="tl_gray"> (%s, %s)</span>', $provider, $variant);
-
-            return $label;
+            return $label . sprintf('<span class="tl_gray"> (%s, %s)</span>', $provider, $variant);
         }
 
-        $label .= sprintf('<span class="tl_gray"> (%s)</span>', $provider);
-
-        return $label;
+        return $label . sprintf('<span class="tl_gray"> (%s)</span>', $provider);
     }
 }

@@ -7,6 +7,7 @@ namespace Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca;
 use Contao\BackendTemplate;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
+use Contao\Model;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
@@ -44,7 +45,7 @@ final class LayerDcaListener extends AbstractListener
         }
 
         $layer = $this->layerRepository->find((int) $dataContainer->id);
-        if ($layer === null) {
+        if (! $layer instanceof Model) {
             return;
         }
 
