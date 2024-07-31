@@ -65,11 +65,7 @@ final class ProviderLayerType implements LayerType
         $langKey    = 'leaflet_provider.' . $row['tile_provider'] . '.0';
         $translated = $this->translator->trans($langKey, [], 'contao_leaflet');
 
-        if ($translated !== $langKey) {
-            $provider = $translated;
-        } else {
-            $provider = $row['tile_provider'];
-        }
+        $provider = $translated !== $langKey ? $translated : $row['tile_provider'];
 
         $variant = isset($this->configuration[$row['tile_provider']]['variants'])
             ? $row['tile_provider_variant']
