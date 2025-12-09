@@ -6,7 +6,7 @@ namespace Cowegis\Bundle\ContaoProviderLayer\EventListener\Hook;
 
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
-use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 
 /** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class ProviderPalettesListener

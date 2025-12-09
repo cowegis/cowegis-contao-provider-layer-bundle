@@ -12,7 +12,7 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_keys;
@@ -24,7 +24,7 @@ final class LayerDcaListener extends AbstractListener
 {
     /** @param array<string,TProviderConfig> $configuration */
     public function __construct(
-        Manager $dcaManager,
+        DcaManager $dcaManager,
         private readonly TranslatorInterface $translator,
         private readonly Adapter $inputAdapter,
         private readonly LayerRepository $layerRepository,
