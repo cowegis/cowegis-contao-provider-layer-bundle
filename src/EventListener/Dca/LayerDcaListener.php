@@ -7,12 +7,14 @@ namespace Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca;
 use Contao\BackendTemplate;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
+use Contao\Input;
 use Contao\Model;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\LayerRepository;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
-use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\DcaManager;
+use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
+use Override;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function array_keys;
@@ -22,7 +24,10 @@ use function is_string;
 /** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class LayerDcaListener extends AbstractListener
 {
-    /** @param array<string,TProviderConfig> $configuration */
+    /**
+     * @param array<string,TProviderConfig> $configuration
+     * @param Adapter<Input>                $inputAdapter
+     */
     public function __construct(
         DcaManager $dcaManager,
         private readonly TranslatorInterface $translator,
@@ -33,6 +38,7 @@ final class LayerDcaListener extends AbstractListener
         parent::__construct($dcaManager);
     }
 
+    #[Override]
     public static function getName(): string
     {
         return 'tl_cowegis_layer';
@@ -54,7 +60,7 @@ final class LayerDcaListener extends AbstractListener
             $provider = $this->inputAdapter->post('tile_provider');
         }
 
-        if (! isset($this->configuration[$provider]['variants'])) {
+        if ($provider === null || ! isset($this->configuration[$provider]['variants'])) {
             $this->getDefinition()->set(['fields', 'tile_provider_variant', 'exclude'], true);
 
             return;
@@ -62,7 +68,7 @@ final class LayerDcaListener extends AbstractListener
 
         $variants = $this->configuration[$provider]['variants'];
         $variant  = $this->inputAdapter->post('tile_provider_variant');
-        if (isset($variants[$variant]) || in_array($variant, $variants, true)) {
+        if ($variant !== null && (isset($variants[$variant]) || in_array($variant, $variants, true))) {
             return;
         }
 

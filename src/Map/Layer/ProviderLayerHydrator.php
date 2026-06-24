@@ -10,6 +10,7 @@ use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Provider\MapLayerContext;
 use Cowegis\Core\Definition\Layer\Layer;
 use Netzmacht\Contao\Toolkit\Response\ResponseTagger;
+use Override;
 
 /** @psalm-import-type TProviderConfig from ProviderLayerType */
 final class ProviderLayerHydrator extends LayerTypeHydrator
@@ -21,6 +22,7 @@ final class ProviderLayerHydrator extends LayerTypeHydrator
     }
 
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
+    #[Override]
     protected function hydrateLayer(
         LayerModel $layerModel,
         Layer $layer,
@@ -33,6 +35,7 @@ final class ProviderLayerHydrator extends LayerTypeHydrator
         }
     }
 
+    #[Override]
     protected function supportedType(): string
     {
         return 'provider';

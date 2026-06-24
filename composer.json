@@ -21,11 +21,10 @@
     "symfony/config": "^5.4 || ^6.4 || ^7.4",
     "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.4",
     "symfony/http-kernel": "^5.4 || ^6.4 || ^7.4",
-    "symfony/translation-contracts": "^1.1 || ^2.0 || ^3.0"
+    "symfony/translation-contracts": "^1.0 || ^2.0 || ^3.0"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
-    "doctrine/coding-standard": "^12.0",
     "netzmacht/phpspec-phpcq-plugin": "@dev",
     "phpcq/runner-bootstrap": "@dev"
   },

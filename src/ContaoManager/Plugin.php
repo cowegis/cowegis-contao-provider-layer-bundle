@@ -10,6 +10,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Cowegis\Bundle\Contao\CowegisContaoBundle;
 use Cowegis\Bundle\ContaoProviderLayer\CowegisContaoProviderLayerBundle;
+use Override;
 
 final class Plugin implements BundlePluginInterface
 {
@@ -18,6 +19,7 @@ final class Plugin implements BundlePluginInterface
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
+    #[Override]
     public function getBundles(ParserInterface $parser): array
     {
         return [

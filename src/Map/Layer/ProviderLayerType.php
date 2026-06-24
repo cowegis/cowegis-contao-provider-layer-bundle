@@ -8,8 +8,8 @@ use Cowegis\Bundle\Contao\Map\Layer\LayerType;
 use Cowegis\Bundle\Contao\Map\Layer\MapLayerType;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\Contao\Model\Map\MapLayerModel;
-use Cowegis\Core\Definition\Layer\Layer;
 use Cowegis\Core\Definition\Layer\ProviderLayer;
+use Override;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function in_array;
@@ -32,12 +32,14 @@ final class ProviderLayerType implements LayerType
     {
     }
 
+    #[Override]
     public function name(): string
     {
         return 'provider';
     }
 
-    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): Layer
+    #[Override]
+    public function createDefinition(LayerModel $layerModel, MapLayerModel $mapLayerModel): ProviderLayer
     {
         $variants = $this->configuration[$layerModel->tile_provider]['variants'] ?? [];
         $variant  = null;
@@ -60,6 +62,7 @@ final class ProviderLayerType implements LayerType
     }
 
     /** @param array<string,mixed> $row */
+    #[Override]
     public function label(string $label, array $row): string
     {
         $langKey    = 'leaflet_provider.' . $row['tile_provider'] . '.0';
