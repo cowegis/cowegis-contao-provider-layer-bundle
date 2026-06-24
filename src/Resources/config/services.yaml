@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        autoconfigure: true
+
+    Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType:
+        arguments:
+            $translator: '@translator'
+            $configuration: '%cowegis_contao_provider_layer.providers%'
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Map\Layer\LayerType' }
+
+    Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerHydrator:
+        arguments:
+            $configuration: '%cowegis_contao_provider_layer.providers%'
+            $responseTagger: '@netzmacht.contao_toolkit.response_tagger'
+        tags:
+            - { name: 'Cowegis\Bundle\Contao\Hydrator\Hydrator' }
+
+    Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca\LayerDcaListener:
+        arguments:
+            $dcaManager: '@netzmacht.contao_toolkit.dca.manager'
+            $translator: '@translator'
+            $inputAdapter: '@netzmacht.contao_toolkit.contao.input_adapter'
+            $layerRepository: '@Cowegis\Bundle\Contao\Model\LayerRepository'
+            $configuration: '%cowegis_contao_provider_layer.providers%'
+
+    Cowegis\Bundle\ContaoProviderLayer\EventListener\Hook\ProviderPalettesListener:
+        arguments:
+            $dcaManager: '@netzmacht.contao_toolkit.dca.manager'
+            $configuration: '%cowegis_contao_provider_layer.providers%'

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\Bundle\ContaoProviderLayer\EventListener\Hook;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Cowegis\Bundle\Contao\Model\LayerModel;
 use Cowegis\Bundle\ContaoProviderLayer\Map\Layer\ProviderLayerType;
 use Netzmacht\Contao\Toolkit\Dca\DcaManager;
@@ -16,6 +17,7 @@ final class ProviderPalettesListener
     {
     }
 
+    #[AsHook('loadDataContainer')]
     public function onLoadDataContainer(string $dataContainerName): void
     {
         if ($dataContainerName !== LayerModel::getTable()) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\Bundle\ContaoProviderLayer\EventListener\Dca;
 
 use Contao\BackendTemplate;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Input;
@@ -44,6 +45,7 @@ final class LayerDcaListener extends AbstractListener
         return 'tl_cowegis_layer';
     }
 
+    #[AsCallback(table: 'tl_cowegis_layer', target: 'config.onload')]
     public function initialize(DataContainer $dataContainer): void
     {
         if ($this->inputAdapter->get('act') !== 'edit') {
@@ -78,12 +80,14 @@ final class LayerDcaListener extends AbstractListener
     }
 
     /** @return list<string> */
+    #[AsCallback(table: 'tl_cowegis_layer', target: 'fields.tile_provider.options')]
     public function providerOptions(): array
     {
         return array_keys($this->configuration);
     }
 
     /** @return list<string> */
+    #[AsCallback(table: 'tl_cowegis_layer', target: 'fields.tile_provider_variant.options')]
     public function variantOptions(DataContainer $dataContainer): array
     {
         if (! $dataContainer->activeRecord || ! $dataContainer->activeRecord->tile_provider) {
@@ -100,6 +104,7 @@ final class LayerDcaListener extends AbstractListener
         return $options;
     }
 
+    #[AsCallback(table: 'tl_cowegis_layer', target: 'fields.tile_provider_terms_of_use.input_field')]
     public function termsOfUse(DataContainer $dataContainer): string
     {
         if ($dataContainer->activeRecord === null) {
