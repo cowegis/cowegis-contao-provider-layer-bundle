@@ -1,7 +1,8 @@
 {
   "receipts": ["projects/contao-bundle/4.13-5.3"],
   "config": {
-    "phpConstraint": "^8.2"
+    "phpConstraint": "^8.2",
+    "directories": ["tests"]
   },
   "tools": {
     "composer": {
@@ -13,9 +14,6 @@
       }
     },
     "phpcq": {
-      "plugins": {
-        "phpunit": false
-      },
       "presets": {
         "composer-require-checker": {
           "tasks": {
