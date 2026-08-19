@@ -25,7 +25,8 @@
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
-    "phpcq/runner-bootstrap": "@dev"
+    "phpcq/runner-bootstrap": "@dev",
+    "phpunit/phpunit": "^9.6"
   },
   "conflict": {
     "contao/manager-plugin": "<2.1 || >= 3.0"
