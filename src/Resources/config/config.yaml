@@ -11,21 +11,17 @@ parameters:
                     url: 'https://www.hotosm.org/'
                 BZH:
                     url: 'http://www.openstreetmap.bzh/'
+                CAT:
+                    url: 'https://www.openstreetmap.cat/'
 
         OpenSeaMap:
             url: 'http://www.openseamap.org'
-
-        OpenPtMap:
-            url: 'http://www.openptmap.org'
 
         OpenTopoMap:
             url: 'http://viewfinderpanoramas.org'
 
         OpenRailwayMap:
             url: 'http://www.OpenRailwayMap.org'
-
-        OpenFireMap:
-            url: 'http://www.openfiremap.org'
 
         SafeCast:
             url: 'http://blog.safecast.org/about/'
@@ -35,8 +31,21 @@ parameters:
             variants:
                 - AlidadeSmooth
                 - AlidadeSmoothDark
+                - AlidadeSatellite
                 - OSMBright
                 - Outdoors
+                - StamenToner
+                - StamenTonerBackground
+                - StamenTonerLines
+                - StamenTonerLabels
+                - StamenTonerLite
+                - StamenTonerDark
+                - StamenTonerBlacklite
+                - StamenWatercolor
+                - StamenTerrain
+                - StamenTerrainBackground
+                - StamenTerrainLabels
+                - StamenTerrainLines
 
         Thunderforest:
             url: 'https://www.thunderforest.com/'
@@ -48,26 +57,23 @@ parameters:
                 - Landscape
                 - Outdoors
                 - Pioneer
+                - MobileAtlas
+                - Neighbourhood
+                - Atlas
             options:
-                apiKey: tile_provider_key
+                apikey: tile_provider_key
             fields:
                 - tile_provider_key
 
         CyclOSM:
             url: 'https://github.com/cyclosm/cyclosm-cartocss-style'
 
-        Hydda:
-            url: 'http://openstreetmap.se/'
-            variants:
-                - Full
-                - Base
-                - RoadsAndLabels
-
         Jawg:
             url: 'https://www.jawg.io/lab/'
             variants:
                 - Streets
                 - Terrain
+                - Lagoon
                 - Sunny
                 - Dark
                 - Light
@@ -86,31 +92,27 @@ parameters:
                 - Streets
                 - Basic
                 - Bright
+                - Pastel
                 - Positron
                 - Hybrid
                 - Toner
                 - Topo
                 - Voyager
+                - Ocean
+                - Backdrop
+                - Dataviz
+                - DatavizLight
+                - DatavizDark
+                - Aquarelle
+                - Landscape
+                - Openstreetmap
+                - Outdoor
+                - Satellite
+                - Winter
             options:
                 key: tile_provider_key
             fields:
                 - tile_provider_key
-
-        Stamen:
-            url: 'http://stamen.com'
-            variants:
-                - Toner
-                - TonerBackground
-                - TonerHybrid
-                - TonerLines
-                - TonerLabels
-                - TonerLite
-                - Watercolor
-                - Terrain
-                - TerrainBackground
-                - TerrainLabels
-                - TopOSMRelief
-                - TopOSMFeatures
 
         TomTom:
             url: 'https://tomtom.com'
@@ -127,7 +129,6 @@ parameters:
             url: 'https://arcgisonline.com'
             variants:
                 - WorldStreetMap
-                - DeLorme
                 - WorldTopoMap
                 - WorldImagery
                 - WorldTerrain
@@ -157,24 +158,19 @@ parameters:
                 - tile_provider_key
 
         HERE:
-            url: 'https://developer.here.com/'
+            url: 'https://platform.here.com'
             variants:
-                - normalDay
-                - normalDayCustom
-                - normalDayGrey
-                - normalDayMobile
-                - normalDayGreyMobile
-                - normalDayTransit
-                - normalDayTransitMobile
-                - normalDayTraffic
-                - normalNight
-                - normalNightMobile
-                - normalNightGrey
-                - normalNightGreyMobile
-                - normalNightTransit
-                - normalNightTransitMobile
-                - reducedDay
-                - reducedNight
+                - exploreDay
+                - liteDay
+                - logisticsDay
+                - topoDay
+                - logisticsNight
+                - exploreNight
+                - topoNight
+                - liteNight
+                - exploreSatelliteDay
+                - liteSatelliteDay
+                - logisticsSatelliteDay
                 - basicMap
                 - mapLabels
                 - trafficFlow
@@ -183,47 +179,6 @@ parameters:
                 - hybridDayMobile
                 - hybridDayTransit
                 - hybridDayGrey
-                - hybridDayTraffic
-                - pedestrianDay
-                - pedestrianNight
-                - satelliteDay
-                - terrainDay
-                - terrainDayMobile
-            options:
-                app_id: tile_provider_key
-                app_code: tile_provider_code
-            fields:
-                - tile_provider_key
-                - tile_provider_code
-
-        HEREv3:
-            url: 'https://developer.here.com/'
-            variants:
-                - normalDay
-                - normalDayCustom
-                - normalDayGrey
-                - normalDayMobile
-                - normalDayGreyMobile
-                - normalDayTransit
-                - normalDayTransitMobile
-                - normalDayTraffic
-                - normalNight
-                - normalNightMobile
-                - normalNightGrey
-                - normalNightGreyMobile
-                - normalNightTransit
-                - normalNightTransitMobile
-                - reducedDay
-                - reducedNight
-                - basicMap
-                - mapLabels
-                - trafficFlow
-                - carnavDayGrey
-                - hybridDay
-                - hybridDayMobile
-                - hybridDayTransit
-                - hybridDayGrey
-                - hybridDayTraffic
                 - pedestrianDay
                 - pedestrianNight
                 - satelliteDay
@@ -277,6 +232,7 @@ parameters:
                 - standaard
                 - pastel
                 - grijs
+                - water
                 - luchtfoto
 
         NASAGIBS:
@@ -291,7 +247,19 @@ parameters:
                 - ModisTerraChlorophyll
 
         NLS:
-            url: 'http://geo.nls.uk/maps/'
+            url: 'http://maps.nls.uk/projects/subscription-api'
+            variants:
+                - osgb63k1885
+                - osgb1888
+                - osgb10k1888
+                - osgb1919
+                - osgb25k1937
+                - osgb63k1955
+                - oslondon1k1893
+            options:
+                apikey: tile_provider_key
+            fields:
+                - tile_provider_key
 
         JusticeMap:
             url: 'http://www.justicemap.org/terms.php'
@@ -306,15 +274,11 @@ parameters:
                 - white
                 - plurality
 
-        Wikimedia:
-            url: 'https://wikimediafoundation.org/wiki/Maps_Terms_of_Use'
-
         GeoportailFrance:
             url: 'https://www.geoportail.gouv.fr/'
             variants:
+                - plan
                 - parcels
-                - ignMaps
-                - maps
                 - orthos
 
         OneMapSG:
@@ -325,3 +289,76 @@ parameters:
                 - Original
                 - Grey
                 - LandLot
+
+        MapTilesAPI:
+            url: 'http://www.maptilesapi.com/'
+            variants:
+                - OSMEnglish
+                - OSMFrancais
+                - OSMEspagnol
+            options:
+                apikey: tile_provider_key
+            fields:
+                - tile_provider_key
+
+        OPNVKarte:
+            url: 'https://memomaps.de/'
+
+        BaseMapDE:
+            url: 'http://www.govdata.de/dl-de/by-2-0'
+            variants:
+                - Color
+                - Grey
+
+        USGS:
+            url: 'https://www.usgs.gov/'
+            variants:
+                - USTopo
+                - USImagery
+                - USImageryTopo
+
+        WaymarkedTrails:
+            url: 'https://waymarkedtrails.org'
+            variants:
+                - hiking
+                - cycling
+                - mtb
+                - slopes
+                - riding
+                - skating
+
+        OpenAIP:
+            url: 'https://www.openaip.net/'
+
+        OpenSnowMap:
+            url: 'https://www.opensnowmap.org/iframes/data.html'
+            variants:
+                - pistes
+
+        AzureMaps:
+            url: 'https://docs.microsoft.com/en-us/rest/api/maps/render-v2/get-map-tile'
+            variants:
+                - MicrosoftImagery
+                - MicrosoftBaseDarkGrey
+                - MicrosoftBaseRoad
+                - MicrosoftBaseHybridRoad
+                - MicrosoftTerraMain
+                - MicrosoftWeatherInfraredMain
+                - MicrosoftWeatherRadarMain
+            options:
+                subscriptionKey: tile_provider_key
+            fields:
+                - tile_provider_key
+
+        SwissFederalGeoportal:
+            url: 'https://www.swisstopo.admin.ch/'
+            variants:
+                - NationalMapColor
+                - NationalMapGrey
+                - SWISSIMAGE
+
+        TopPlusOpen:
+            url: 'http://www.govdata.de/dl-de/by-2-0'
+            variants:
+                - Color
+                - Grey
