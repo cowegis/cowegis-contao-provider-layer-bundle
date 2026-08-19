@@ -1,6 +1,9 @@
 # Companion
 /.env.companion
 
+# Worktrees
+/.worktrees
+
 # Composer
 /composer.lock
 /vendor
