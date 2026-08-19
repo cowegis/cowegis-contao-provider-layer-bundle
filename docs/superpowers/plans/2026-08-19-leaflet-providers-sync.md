@@ -28,12 +28,12 @@
 - Modify: `src/Resources/config/config.yaml`
 
 **Interfaces:**
-- Produces: the `cowegis_contao_provider_layer.providers` parameter, keyed by provider name, each value shaped like `TProviderConfig` (`src/Map/Layer/ProviderLayerType.php:19-25`): `array{url: string, variants?: list<string>|array<string,array<string,string>>, options?: array<string,string>, fields?: list<string>}`. Everything downstream (Task 3's migration, and all existing PHP classes) keys off these exact provider/variant string values.
+- Produces: the `cowegis_contao_provider_layer.providers` parameter, keyed by provider name, each value shaped like `TProviderConfig` (`src/Map/Layer/ProviderLayerType.php:19-25`): `array{url: string, variants?: list<string>|array<string,array<string,string>>, options?: array<string,string>, fields?: list<string>}`. Everything downstream (Task 4's migration, and all existing PHP classes) keys off these exact provider/variant string values.
 
 ### Reference: exact diff to apply
 
 **Remove entirely** (no upstream successor — confirmed via `CHANGELOG.md`: "[Breaking] Remove deprecated OpenFireMap layer", "[Breaking] Remove Hydda layers", "Remove Wikimedia map provider"):
-- `OpenPtMap` (see Task 3 — replaced by `OPNVKarte`, but it's a provider-key rename, not an in-place edit)
+- `OpenPtMap` (see Task 4 — replaced by `OPNVKarte`, but it's a provider-key rename, not an in-place edit)
 - `OpenFireMap`
 - `Hydda`
 - `Stamen` (merged into `Stadia`, see below)
