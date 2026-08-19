@@ -4,6 +4,9 @@
 # Worktrees
 /.worktrees
 
+# Superpowers subagent-driven-development scratch workspace
+/.superpowers
+
 # Composer
 /composer.lock
 /vendor
