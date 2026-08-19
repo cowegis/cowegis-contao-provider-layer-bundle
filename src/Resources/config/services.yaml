@@ -28,3 +28,7 @@ services:
         arguments:
             $dcaManager: '@netzmacht.contao_toolkit.dca.manager'
             $configuration: '%cowegis_contao_provider_layer.providers%'
+
+    Cowegis\Bundle\ContaoProviderLayer\Migration\LeafletProviderSyncMigration:
+        arguments:
+            $connection: '@doctrine.dbal.default_connection'
