@@ -20,7 +20,6 @@ final class LeafletProviderSyncMigration extends AbstractMigration
     /** @var array<string,string> Provider keys renamed 1:1 upstream, no variant impact. */
     private const PROVIDER_RENAMES = [
         'OpenPtMap' => 'OPNVKarte',
-        'HEREv3'    => 'HERE',
     ];
 
     /** @var array<string,string> Stamen variant name => new Stadia variant name (confirmed 1:1 style match). */
@@ -38,6 +37,34 @@ final class LeafletProviderSyncMigration extends AbstractMigration
 
     /** @var list<string> Providers removed upstream without any replacement. */
     private const PROVIDERS_WITHOUT_REPLACEMENT = ['OpenFireMap', 'Hydda', 'Wikimedia'];
+
+    /** @var list<string> HERE variant names that still exist in the current (v3) config.yaml. */
+    private const HERE_VALID_VARIANTS = [
+        'exploreDay',
+        'liteDay',
+        'logisticsDay',
+        'topoDay',
+        'logisticsNight',
+        'exploreNight',
+        'topoNight',
+        'liteNight',
+        'exploreSatelliteDay',
+        'liteSatelliteDay',
+        'logisticsSatelliteDay',
+        'basicMap',
+        'mapLabels',
+        'trafficFlow',
+        'carnavDayGrey',
+        'hybridDay',
+        'hybridDayMobile',
+        'hybridDayTransit',
+        'hybridDayGrey',
+        'pedestrianDay',
+        'pedestrianNight',
+        'satelliteDay',
+        'terrainDay',
+        'terrainDayMobile',
+    ];
 
     public function __construct(private readonly Connection $connection)
     {
@@ -73,6 +100,14 @@ final class LeafletProviderSyncMigration extends AbstractMigration
             if ($count > 0) {
                 $messages[] = sprintf('Renamed %d layer(s) from provider "%s" to "%s".', $count, $old, $new);
             }
+        }
+
+        $hereV3Count = $this->connection->executeStatement(
+            "UPDATE tl_cowegis_layer SET tile_provider = 'HERE', tile_provider_code = '' WHERE tile_provider = 'HEREv3'",
+        );
+
+        if ($hereV3Count > 0) {
+            $messages[] = sprintf('Renamed %d layer(s) from provider "HEREv3" to "HERE".', $hereV3Count);
         }
 
         foreach (self::STAMEN_VARIANT_RENAMES as $old => $new) {
@@ -118,6 +153,21 @@ final class LeafletProviderSyncMigration extends AbstractMigration
             );
         }
 
+        $herePlaceholders        = implode(',', array_fill(0, count(self::HERE_VALID_VARIANTS), '?'));
+        $hereInvalidVariantIds   = $this->connection->fetchFirstColumn(
+            "SELECT id FROM tl_cowegis_layer WHERE tile_provider = 'HERE' "
+                . "AND tile_provider_variant NOT IN ($herePlaceholders)",
+            self::HERE_VALID_VARIANTS,
+        );
+
+        if ($hereInvalidVariantIds !== []) {
+            $messages[] = sprintf(
+                "Layer(s) %s use a HERE variant that no longer exists (HERE's API v3 renamed its whole "
+                    . 'style catalogue). Please pick a new variant manually.',
+                implode(', ', $hereInvalidVariantIds),
+            );
+        }
+
         foreach (self::PROVIDERS_WITHOUT_REPLACEMENT as $provider) {
             $ids = $this->connection->fetchFirstColumn(
                 'SELECT id FROM tl_cowegis_layer WHERE tile_provider = :provider',
@@ -159,6 +209,19 @@ final class LeafletProviderSyncMigration extends AbstractMigration
             );
         }
 
+        $nlsMissingKeyIds = $this->connection->fetchFirstColumn(
+            "SELECT id FROM tl_cowegis_layer WHERE tile_provider = 'NLS' AND tile_provider_key = ''",
+        );
+
+        if ($nlsMissingKeyIds !== []) {
+            $messages[] = sprintf(
+                'Layer(s) %s use NLS, which now requires an API key (previously none was needed). '
+                    . 'Please request one at https://www.maptiler.com/ and enter it in the layer settings, '
+                    . 'and pick one of the new NLS variants.',
+                implode(', ', $nlsMissingKeyIds),
+            );
+        }
+
         if ($messages === []) {
             return $this->createResult(true, 'Nothing to migrate.');
         }
@@ -168,19 +231,12 @@ final class LeafletProviderSyncMigration extends AbstractMigration
 
     private function affectedRowCount(): int
     {
-        $providers = [
-            ...array_keys(self::PROVIDER_RENAMES),
-            'Stamen',
-            ...self::PROVIDERS_WITHOUT_REPLACEMENT,
-        ];
+        $providers = [...array_keys(self::PROVIDER_RENAMES), 'HEREv3', 'Stamen'];
 
         $placeholders = implode(',', array_fill(0, count($providers), '?'));
 
         return (int) $this->connection->fetchOne(
-            "SELECT COUNT(*) FROM tl_cowegis_layer WHERE tile_provider IN ($placeholders) "
-                . "OR (tile_provider = 'HERE' AND tile_provider_code != '') "
-                . "OR (tile_provider = 'GeoportailFrance' AND tile_provider_variant IN ('ignMaps', 'maps')) "
-                . "OR (tile_provider = 'Esri' AND tile_provider_variant = 'DeLorme')",
+            "SELECT COUNT(*) FROM tl_cowegis_layer WHERE tile_provider IN ($placeholders)",
             $providers,
         );
     }
