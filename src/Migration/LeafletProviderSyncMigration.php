@@ -17,12 +17,12 @@ use function sprintf;
 
 final class LeafletProviderSyncMigration extends AbstractMigration
 {
-    /** @var array<string,string> Provider keys renamed 1:1 upstream, no variant impact. */
-    private const PROVIDER_RENAMES = [
-        'OpenPtMap' => 'OPNVKarte',
-    ];
+    // Provider keys renamed 1:1 upstream, no variant impact.
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint
+    private const PROVIDER_RENAMES = ['OpenPtMap' => 'OPNVKarte'];
 
-    /** @var array<string,string> Stamen variant name => new Stadia variant name (confirmed 1:1 style match). */
+    // Stamen variant name => new Stadia variant name (confirmed 1:1 style match).
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint
     private const STAMEN_VARIANT_RENAMES = [
         'Toner'             => 'StamenToner',
         'TonerBackground'   => 'StamenTonerBackground',
@@ -35,10 +35,12 @@ final class LeafletProviderSyncMigration extends AbstractMigration
         'TerrainLabels'     => 'StamenTerrainLabels',
     ];
 
-    /** @var list<string> Providers removed upstream without any replacement. */
+    // Providers removed upstream without any replacement.
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint
     private const PROVIDERS_WITHOUT_REPLACEMENT = ['OpenFireMap', 'Hydda', 'Wikimedia'];
 
-    /** @var list<string> HERE variant names that still exist in the current (v3) config.yaml. */
+    // HERE variant names that still exist in the current (v3) config.yaml.
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint
     private const HERE_VALID_VARIANTS = [
         'exploreDay',
         'liteDay',
@@ -97,13 +99,16 @@ final class LeafletProviderSyncMigration extends AbstractMigration
                 ['new' => $new, 'old' => $old],
             );
 
-            if ($count > 0) {
-                $messages[] = sprintf('Renamed %d layer(s) from provider "%s" to "%s".', $count, $old, $new);
+            if ($count === 0) {
+                continue;
             }
+
+            $messages[] = sprintf('Renamed %d layer(s) from provider "%s" to "%s".', $count, $old, $new);
         }
 
         $hereV3Count = $this->connection->executeStatement(
-            "UPDATE tl_cowegis_layer SET tile_provider = 'HERE', tile_provider_code = '' WHERE tile_provider = 'HEREv3'",
+            "UPDATE tl_cowegis_layer SET tile_provider = 'HERE', tile_provider_code = '' "
+                . "WHERE tile_provider = 'HEREv3'",
         );
 
         if ($hereV3Count > 0) {
@@ -117,9 +122,11 @@ final class LeafletProviderSyncMigration extends AbstractMigration
                 ['stadia' => 'Stadia', 'new' => $new, 'stamen' => 'Stamen', 'old' => $old],
             );
 
-            if ($count > 0) {
-                $messages[] = sprintf('Migrated %d Stamen.%s layer(s) to Stadia.%s.', $count, $old, $new);
+            if ($count === 0) {
+                continue;
             }
+
+            $messages[] = sprintf('Migrated %d Stamen.%s layer(s) to Stadia.%s.', $count, $old, $new);
         }
 
         $orphanedStamenIds = $this->connection->fetchFirstColumn(
@@ -153,18 +160,18 @@ final class LeafletProviderSyncMigration extends AbstractMigration
             );
         }
 
-        $herePlaceholders        = implode(',', array_fill(0, count(self::HERE_VALID_VARIANTS), '?'));
-        $hereInvalidVariantIds   = $this->connection->fetchFirstColumn(
+        $herePlaceholders  = implode(',', array_fill(0, count(self::HERE_VALID_VARIANTS), '?'));
+        $hereBadVariantIds = $this->connection->fetchFirstColumn(
             "SELECT id FROM tl_cowegis_layer WHERE tile_provider = 'HERE' "
-                . "AND tile_provider_variant NOT IN ($herePlaceholders)",
+                . 'AND tile_provider_variant NOT IN (' . $herePlaceholders . ')',
             self::HERE_VALID_VARIANTS,
         );
 
-        if ($hereInvalidVariantIds !== []) {
+        if ($hereBadVariantIds !== []) {
             $messages[] = sprintf(
                 "Layer(s) %s use a HERE variant that no longer exists (HERE's API v3 renamed its whole "
                     . 'style catalogue). Please pick a new variant manually.',
-                implode(', ', $hereInvalidVariantIds),
+                implode(', ', $hereBadVariantIds),
             );
         }
 
@@ -174,26 +181,28 @@ final class LeafletProviderSyncMigration extends AbstractMigration
                 ['provider' => $provider],
             );
 
-            if ($ids !== []) {
-                $messages[] = sprintf(
-                    'Layer(s) %s use the removed provider "%s", which has no upstream replacement. '
-                        . 'Please choose a different provider manually.',
-                    implode(', ', $ids),
-                    $provider,
-                );
+            if ($ids === []) {
+                continue;
             }
+
+            $messages[] = sprintf(
+                'Layer(s) %s use the removed provider "%s", which has no upstream replacement. '
+                    . 'Please choose a different provider manually.',
+                implode(', ', $ids),
+                $provider,
+            );
         }
 
-        $orphanedGeoportailIds = $this->connection->fetchFirstColumn(
+        $geoportailOldIds = $this->connection->fetchFirstColumn(
             "SELECT id FROM tl_cowegis_layer WHERE tile_provider = 'GeoportailFrance' "
                 . "AND tile_provider_variant IN ('ignMaps', 'maps')",
         );
 
-        if ($orphanedGeoportailIds !== []) {
+        if ($geoportailOldIds !== []) {
             $messages[] = sprintf(
                 'Layer(s) %s use GeoportailFrance.ignMaps/maps, which no longer exist upstream. '
                     . 'Please pick a new variant (plan/parcels/orthos) manually.',
-                implode(', ', $orphanedGeoportailIds),
+                implode(', ', $geoportailOldIds),
             );
         }
 
@@ -236,7 +245,7 @@ final class LeafletProviderSyncMigration extends AbstractMigration
         $placeholders = implode(',', array_fill(0, count($providers), '?'));
 
         return (int) $this->connection->fetchOne(
-            "SELECT COUNT(*) FROM tl_cowegis_layer WHERE tile_provider IN ($placeholders)",
+            'SELECT COUNT(*) FROM tl_cowegis_layer WHERE tile_provider IN (' . $placeholders . ')',
             $providers,
         );
     }
