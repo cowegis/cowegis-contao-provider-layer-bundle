@@ -52,6 +52,7 @@ final class LeafletProviderSyncMigrationTest extends TestCase
         self::assertTrue($migration->shouldRun());
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     public function testItRenamesOpenPtMapToOpnvkarteAndReportsIt(): void
     {
         $connection = $this->createMock(Connection::class);
@@ -74,7 +75,7 @@ final class LeafletProviderSyncMigrationTest extends TestCase
         self::assertTrue($result->isSuccessful());
         self::assertStringContainsString(
             'Renamed 3 layer(s) from provider "OpenPtMap" to "OPNVKarte"',
-            (string) $result->getMessage(),
+            $result->getMessage(),
         );
     }
 }

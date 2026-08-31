@@ -1,12 +1,6 @@
 # Companion
 /.env.companion
 
-# Worktrees
-/.worktrees
-
-# Superpowers subagent-driven-development scratch workspace
-/.superpowers
-
 # Composer
 /composer.lock
 /vendor
@@ -15,6 +9,4 @@
 /.phpcq
 /.phpcq.yaml
 /.phpcs-cache
-
-# PHPUnit
 /.phpunit.result.cache

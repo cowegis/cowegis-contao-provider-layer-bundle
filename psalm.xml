@@ -5,9 +5,14 @@
         <ignoreFiles>
             <directory name="vendor"/>
         </ignoreFiles>
-    </projectFiles>
+    <directory name="tests"/></projectFiles>
     
     <issueHandlers>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="PHPUnit\Framework\TestCase"/>
+            </errorLevel>
+        </UndefinedClass>
         <UndefinedMagicPropertyFetch>
             <errorLevel type="suppress">
                 <referencedProperty name="Cowegis\Bundle\Contao\Model\LayerModel::$tile_provider"/>
